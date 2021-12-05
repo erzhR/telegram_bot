@@ -2,9 +2,9 @@ const cron = require('node-cron')
 const TelegramBotApi = require('node-telegram-bot-api')
 const mongoose = require('mongoose')
 const { MongoClient } = require('mongodb')
-
-const token = '1091053097:AAFUvWXOy0YNxB_X9WlSYrt8VJiDoOoSMAQ'
-const client = new MongoClient('mongodb+srv://erzh:hi1px22s@cluster0.9nvlr.mongodb.net/telegramBot')
+require('dotenv').config()
+const parse = require('./parse')
+const token = process.env.BOT_TOKEN
 
 const bot = new TelegramBotApi(token, { polling: true })
 
@@ -12,10 +12,10 @@ cron.schedule(
     '0 * * * * *',
     async () => {
         try {
-            await bot.sendMessage(
-                -1001702969751,
-                `Проверка`,
-            )
+            // await bot.sendMessage(
+            //     -1001702969751,
+            //     `Проверка`,
+            // )
         } catch (error) {
             console.log(error);
         }
@@ -48,3 +48,11 @@ bot.on('message', async (response) => {
         await bot.sendMessage(chatId, 'Всем привет я бот')
     else await bot.sendMessage(chatId, 'Не понимаю')
 })
+// const addWords = async () => {
+//     const resultWords = await parse()
+//     await insertWordsWeek(resultWords)
+//     console.log(resultWords);
+// }
+// addWords()
+// insertWordsWeek()
+
