@@ -16,10 +16,10 @@ const parse = async () => {
     try {
         const element = await getHTML(process.env.PARSE_LINK)
         element('.dict-word').each((i, elem) => {
-            if (i <= 7) {
+            if (i < 7) {
                 const eng = element(elem).find('span.eng').text()
                 const rus = element(elem).find('span.rus').text()
-                wordsData.push({ eng, rus })
+                wordsData.push({ eng, rus, isSended: false, date: Date.now() })
             } else return
 
         })
